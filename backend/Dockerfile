@@ -20,4 +20,4 @@ EXPOSE 5555
 ENV NODE_ENV=production
 
 # Start your backend server
-CMD ["node", "index.js"]
+CMD ["node", "server.js"]
