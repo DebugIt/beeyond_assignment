@@ -1,0 +1,36 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5555:5555"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/realtimeorders
+      - JWT_SECRET=supersecretkey
+      - PORT=5555
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BASE_URL=http://localhost:5555
+      - NEXT_PUBLIC_SOCKET_URL=ws://localhost:5555
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
