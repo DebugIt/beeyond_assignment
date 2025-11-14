@@ -60,7 +60,7 @@ module.exports.login = async (req, res, next) => {
                 checkifExists.password = undefined
                 res.cookie('session', getToken, {
                     httpOnly: true,
-                    secure: isProduction,
+                    secure: false,
                     sameSite: 'lax',
                     maxAge: 7 * 24 * 60 * 60 * 1000
                 }).status(200).json({
